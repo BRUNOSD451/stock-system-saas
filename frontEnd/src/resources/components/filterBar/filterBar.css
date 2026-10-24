@@ -1,0 +1,48 @@
+/* Filtros e ordenação: rótulo e valor num só controle, da mesma altura da busca. */
+.filter-select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  min-width: 0;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-tag);
+  background: var(--sheet);
+  font-size: 14px;
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+.filter-select:hover { border-color: var(--edge); }
+.filter-select:focus-within { border-color: var(--ink); box-shadow: var(--focus-ring); }
+
+.filter-select-label { flex-shrink: 0; padding-left: 12px; color: var(--ink-3); white-space: nowrap; pointer-events: none; }
+.filter-select-label::after { content: ":"; }
+
+.filter-select select {
+  min-width: 0;
+  height: 100%;
+  padding: 0 32px 0 6px;
+  border: 0;
+  border-radius: var(--r-tag);
+  appearance: none;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%234f5660' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E") no-repeat right 10px center;
+  color: var(--ink);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.filter-select select:focus-visible { outline: 0; }
+.filter-select select:disabled { cursor: not-allowed; opacity: .55; }
+
+/* Filtro aplicado: contorno escuro, para saber de relance o que está restringindo a lista. */
+.filter-select.is-active { border-color: var(--ink); background: var(--sheet-2); }
+
+.filter-clear { color: var(--ink-2); }
+
+@media (max-width: 860px) {
+  .filter-select { flex: 1 1 calc(50% - 6px); }
+  .filter-select select { flex: 1; }
+}
+
+@media (max-width: 420px) {
+  .filter-select { flex-basis: 100%; }
+}

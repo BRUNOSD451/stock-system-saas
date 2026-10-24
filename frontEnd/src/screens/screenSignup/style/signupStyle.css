@@ -1,0 +1,29 @@
+/* O cadastro reaproveita o layout do login; aqui ficam só as diferenças. */
+.signup-form-panel { flex-basis: 560px; width: 560px; align-items: flex-start; overflow-y: auto; }
+.signup-card { max-width: 440px; padding: 24px 0; }
+
+/* Dois grupos: os dados da empresa e o acesso de quem está criando a conta. */
+.signup-section { display: flex; flex-direction: column; gap: 16px; min-width: 0; border: 0; }
+.signup-section legend { width: 100%; margin-bottom: 12px; color: var(--ink); font-size: 16px; font-weight: 700; }
+/* A régua fica na legenda: borda no fieldset corta o texto da legend. */
+.signup-section + .signup-section legend { padding-top: 20px; border-top: 1px solid var(--rule); }
+
+.signup-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+
+.field-hint { color: var(--ink-3); font-size: 13px; }
+
+.signup-terms { align-items: flex-start; line-height: 1.4; }
+.signup-terms .remember-checkbox { flex-shrink: 0; margin-top: 1px; }
+
+@media (max-width: 1100px) {
+  .signup-form-panel { flex-basis: 480px; width: 480px; }
+}
+
+@media (max-width: 900px) {
+  .signup-form-panel { width: 100%; }
+  .signup-card { padding: 0; }
+}
+
+@media (max-width: 480px) {
+  .signup-row { grid-template-columns: minmax(0, 1fr); }
+}

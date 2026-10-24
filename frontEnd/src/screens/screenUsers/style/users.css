@@ -1,0 +1,35 @@
+.user-list-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.user-list-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--sheet-2);
+  box-shadow: inset 0 0 0 1px var(--rule);
+  color: var(--ink-2);
+  font-weight: 700;
+}
+.user-list-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.user-list-pending { display: block; margin-top: 2px; color: var(--signal-ink); font-size: 12px; font-weight: 500; }
+.user-row-actions { display: inline-flex; gap: 4px; }
+
+/* ── Acesso provisório ────────────────────────────────────────────────────── */
+.temporary-access-data { overflow: hidden; border: 1px solid var(--rule); border-radius: var(--r-tag); }
+.temporary-access-data > div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 12px 14px; }
+.temporary-access-data > div + div { border-top: 1px solid var(--rule); }
+.temporary-access-data dt { color: var(--ink-2); font-size: 14px; }
+.temporary-access-data dd { font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.temporary-access-password { padding: 2px 8px; border-radius: var(--r-tag); background: var(--signal-soft); font-size: 21px !important; letter-spacing: .06em; user-select: all; }
+.temporary-access-note { color: var(--ink-2); font-size: 14px; }
+.temporary-access-actions { flex-wrap: wrap; }
+.temporary-access-actions a.btn { text-decoration: none; }
+
+/* Cargos diferenciados por peso visual, não por cores de alerta. */
+.role-badge.administrador { background: var(--ink); color: #fff; }
+.role-badge.supervisor { border-color: var(--ink); color: var(--ink); }
+.role-badge.funcionario { background: var(--sheet-2); color: var(--ink-2); }

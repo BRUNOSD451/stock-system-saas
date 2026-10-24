@@ -1,0 +1,130 @@
+.notification-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(27, 29, 33, .45);
+}
+
+.notification-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100vw);
+  height: 100%;
+  border-left: 1px solid var(--rule);
+  background: var(--sheet);
+  color: var(--ink);
+  box-shadow: var(--lift);
+  animation: notification-drawer-in .18s ease-out;
+}
+
+.notification-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.notification-drawer-header h2 { font-size: 21px; font-weight: 700; }
+
+.notification-drawer-close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--r-tag);
+  background: transparent;
+  color: var(--ink-2);
+}
+.notification-drawer-close:hover { background: var(--sheet-2); color: var(--ink); }
+
+.notification-drawer-content { flex: 1; overflow-y: auto; padding: 16px 20px 24px; }
+
+/* Controle segmentado: um filtro ativo por vez. */
+.notification-filters {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 16px;
+  padding: 3px;
+  border-radius: var(--r-tag);
+  background: var(--sheet-2);
+}
+.notification-filters button {
+  flex: 1;
+  min-height: 34px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 500;
+}
+.notification-filters button:hover { color: var(--ink); }
+.notification-filters button.is-active { background: var(--sheet); color: var(--ink); font-weight: 600; box-shadow: 0 0 0 1px var(--rule); }
+
+/* ── Itens ────────────────────────────────────────────────────────────────── */
+.notification-list { display: flex; flex-direction: column; list-style: none; border-top: 1px solid var(--rule); }
+
+.notification-item {
+  --notice-color: var(--ink-2);
+  --notice-soft: var(--sheet-2);
+  position: relative;
+  display: flex;
+  gap: 12px;
+  padding: 14px 4px 14px 12px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink-2);
+}
+.notification-item::before { content: ''; position: absolute; top: 14px; bottom: 14px; left: 0; width: 3px; border-radius: 2px; background: var(--notice-color); }
+
+.notification-item-input { --notice-color: var(--in); --notice-soft: var(--in-soft); --notice-ink: var(--in-ink); }
+.notification-item-output { --notice-color: var(--out); --notice-soft: var(--out-soft); --notice-ink: var(--out-ink); }
+.notification-item-low-stock { --notice-color: var(--signal); --notice-soft: var(--signal-soft); --notice-ink: var(--signal-ink); }
+
+.notification-item-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-tag);
+  background: var(--notice-soft);
+  color: var(--notice-ink, var(--ink-2));
+}
+
+.notification-item strong { display: block; margin-bottom: 2px; color: var(--ink); font-size: 14px; font-weight: 600; }
+.notification-item p { color: var(--ink-2); font-size: 14px; line-height: 1.45; }
+.notification-date { display: block; margin-top: 4px; color: var(--ink-3); font-size: 12px; }
+
+/* Lidas ficam em segundo plano sem perder contraste do texto. */
+.notification-item:not(.is-unread) strong { font-weight: 500; }
+.notification-item:not(.is-unread)::before { background: var(--rule); }
+.notification-item.is-unread { background: var(--sheet); }
+.notification-item.is-unread strong::after {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: var(--danger);
+  vertical-align: 2px;
+}
+
+/* ── Estados ──────────────────────────────────────────────────────────────── */
+.notification-state { padding: 40px 16px; color: var(--ink-2); font-size: 14px; line-height: 1.5; text-align: center; }
+.notification-state-error { padding: 10px 12px; border-left: 3px solid var(--danger); border-radius: var(--r-tag); background: var(--danger-soft); color: var(--danger); text-align: left; }
+
+.notification-empty { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--ink-3); }
+.notification-empty p { color: var(--ink); font-weight: 600; }
+.notification-empty span { font-size: 14px; color: var(--ink-2); }
+
+@keyframes notification-drawer-in {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}

@@ -1,0 +1,32 @@
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 48px 24px;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+/* Contorno tracejado como uma posição vazia na prateleira. */
+.empty-state.is-framed {
+  grid-column: 1 / -1;
+  border: 1px dashed var(--edge);
+  border-radius: var(--r-sheet);
+  background: var(--sheet);
+}
+
+.empty-state-title { color: var(--ink); font-size: 18px; font-weight: 600; }
+.empty-state-body { display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 48ch; }
+
+.empty-state-spinner {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 8px;
+  border: 2px solid var(--rule);
+  border-top-color: var(--ink);
+  border-radius: 50%;
+  animation: empty-state-spin .8s linear infinite;
+}
+
+@keyframes empty-state-spin { to { transform: rotate(360deg); } }

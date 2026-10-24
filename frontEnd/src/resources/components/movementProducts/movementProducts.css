@@ -1,0 +1,29 @@
+.movement-products { margin-top: 8px; }
+
+.movement-products-toggle { margin-left: -10px; }
+.movement-products-toggle svg { transition: transform .15s ease; }
+.movement-products-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.movement-products-content { margin-top: 8px; }
+.movement-products-state { color: var(--ink-3); font-size: 14px; }
+.movement-products-error { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; color: var(--danger); font-size: 14px; }
+
+.movement-products-list { border-top: 1px solid var(--rule); list-style: none; }
+.movement-product-detail {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px dotted var(--rule);
+}
+.movement-product-detail:last-child { border-bottom: 0; }
+.movement-product-detail > div { min-width: 0; overflow-wrap: anywhere; }
+.movement-product-detail strong { font-size: 15px; font-weight: 600; }
+.movement-product-detail > div p,
+.movement-product-detail > div small { display: block; margin-top: 2px; color: var(--ink-2); font-size: 13px; }
+
+.movement-product-qty { font-size: 20px; font-stretch: 75%; font-variant-numeric: tabular-nums; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.movement-product-qty small { margin-left: 3px; color: var(--ink-3); font-size: 13px; font-stretch: 100%; font-weight: 500; }
+.movement-products.is-in .movement-product-qty { color: var(--in-ink); }
+.movement-products.is-out .movement-product-qty { color: var(--out-ink); }

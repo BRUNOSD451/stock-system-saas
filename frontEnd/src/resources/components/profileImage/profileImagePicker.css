@@ -1,0 +1,7 @@
+.profile-image-picker { display: flex; flex-direction: column; gap: 10px; min-width: 0; color: var(--ink-2); font-size: 14px; }
+.profile-image-picker-label { color: var(--ink); font-weight: 600; }
+.profile-image-picker input[hidden] { display: none; }
+.profile-image-picker-preview { width: 80px; height: 80px; border: 1px solid var(--rule); border-radius: 50%; object-fit: cover; }
+.profile-image-picker-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.profile-image-picker-filename { min-width: 0; overflow-wrap: anywhere; color: var(--ink-2); font-size: 13px; }
+.profile-image-picker-hint { color: var(--ink-3); font-size: 13px; }

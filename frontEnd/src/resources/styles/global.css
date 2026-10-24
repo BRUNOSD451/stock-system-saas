@@ -1,0 +1,348 @@
+/* ── Tokens ───────────────────────────────────────────────────────────────────
+   Estética de etiqueta de prateleira: piso claro, etiquetas brancas, estante
+   grafite e amarelo de segurança reservado para marca, item ativo e reposição.
+   O estêncil é só da marca (logotipo e título do login); as telas usam Archivo. */
+:root {
+  --floor: #f1f3f5;
+  --sheet: #ffffff;
+  --sheet-2: #f6f7f9;
+  --sheet-hover: #f9fafb;
+  --rack: #24272c;
+  --rack-2: #30343a;
+  --rack-rule: #3a3f46;
+
+  --ink: #1b1d21;
+  --ink-hover: #33373d;
+  --ink-2: #4f5660;
+  --ink-3: #5e656f;
+  --rack-ink: #e9ebee;
+  --rack-ink-2: #a3a9b2;
+
+  /* rule: divisórias e contorno de superfícies; rule-strong: botões secundários;
+     edge: contorno de campos, com contraste de 3:1 sobre o branco. */
+  --rule: #e2e5e9;
+  --rule-strong: #cdd2d8;
+  --edge: #8b929b;
+
+  --signal: #ffc21a;
+  --signal-soft: #fff6d6;
+  --signal-ink: #7a5600;
+
+  /* Entradas e saídas: validadas para daltonismo no gráfico do dashboard. */
+  --in: #2a9d63;
+  --in-ink: #1d7048;
+  --in-soft: #e3f4ea;
+  --out: #2d5be3;
+  --out-ink: #2448b5;
+  --out-soft: #e6ecfc;
+
+  --danger: #c2362b;
+  --danger-hover: #a82d23;
+  --danger-soft: #fbe9e7;
+
+  --font-ui: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-stencil: 'Big Shoulders Stencil Display', 'Archivo', sans-serif;
+
+  /* r-tag: controles e etiquetas; r-sheet: superfícies (cards, tabelas, modais). */
+  --r-tag: 6px;
+  --r-sheet: 10px;
+  --sidebar-w: 248px;
+  /* Superfícies ficam no plano com borda; só o que flutua (modais, toasts) ganha sombra. */
+  --lift: 0 1px 2px rgba(27, 29, 33, .06), 0 24px 48px -16px rgba(27, 29, 33, .28);
+  --focus-ring: 0 0 0 3px rgba(27, 29, 33, .14);
+
+  color-scheme: light;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--floor);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+img { display: block; max-width: 100%; }
+h1, h2, h3 { line-height: 1.2; }
+
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+::selection { background: var(--signal); color: var(--ink); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c3c8ce; border: 3px solid transparent; border-radius: 10px; background-clip: padding-box; }
+
+/* ── Estrutura das telas autenticadas ─────────────────────────────────────── */
+.app-layout { display: flex; width: 100%; height: 100vh; height: 100dvh; }
+.page { flex: 1; min-width: 0; overflow-y: auto; }
+.page-inner { max-width: 1280px; margin: 0 auto; padding: 36px 40px 64px; }
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-bottom: 28px;
+}
+.page-heading { min-width: 0; }
+/* Semicondensada: guarda o ar industrial da marca sem o peso do estêncil. */
+.page-title {
+  color: var(--ink);
+  font-size: 30px;
+  font-stretch: 87.5%;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.015em;
+}
+.page-subtitle { max-width: 64ch; margin-top: 6px; color: var(--ink-2); font-size: 15px; }
+.page-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+/* Título de bloco dentro da página (ex.: "Precisa de reposição"). */
+.section-title { color: var(--ink); font-size: 16px; font-weight: 700; letter-spacing: -.005em; }
+.section-hint { margin-top: 2px; color: var(--ink-3); font-size: 14px; }
+
+/* Superfície padrão: branca, com borda; cabeçalho opcional separado por divisória. */
+.panel { overflow: hidden; border: 1px solid var(--rule); border-radius: var(--r-sheet); background: var(--sheet); }
+.panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.page-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-bottom: 16px;
+}
+.result-count { color: var(--ink-3); font-size: 14px; }
+/* Com filtros na barra, a contagem vai para a ponta direita. */
+.page-toolbar .result-count:last-child { margin-left: auto; }
+
+.search-field { position: relative; display: flex; align-items: center; flex: 0 1 320px; min-width: 0; }
+.search-field svg { position: absolute; left: 12px; color: var(--ink-3); pointer-events: none; }
+.search-field input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px 0 38px;
+  border: 1px solid var(--edge);
+  border-radius: var(--r-tag);
+  background: var(--sheet);
+  font-size: 15px;
+}
+.search-field input::placeholder { color: var(--ink-3); }
+.search-field input:hover { border-color: var(--ink-2); }
+.search-field input:focus-visible { border-color: var(--ink); outline: 0; box-shadow: var(--focus-ring); }
+
+/* ── Botões ───────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: var(--r-tag);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease, box-shadow .12s ease;
+}
+.btn:disabled { cursor: not-allowed; opacity: .55; }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn-primary { background: var(--ink); color: #fff; box-shadow: 0 1px 2px rgba(27, 29, 33, .16); }
+.btn-primary:hover:not(:disabled) { background: var(--ink-hover); }
+.btn-secondary { border-color: var(--rule-strong); background: var(--sheet); color: var(--ink); box-shadow: 0 1px 2px rgba(27, 29, 33, .05); }
+.btn-secondary:hover:not(:disabled) { border-color: var(--edge); background: var(--sheet-2); }
+.btn-ghost { padding: 0 10px; background: transparent; color: var(--ink-2); }
+.btn-ghost:hover:not(:disabled) { background: var(--sheet-2); color: var(--ink); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover:not(:disabled) { background: var(--danger-hover); }
+.btn-sm { min-height: 32px; padding: 0 10px; font-size: 13px; }
+
+/* Botão só com ícone (notificações, fechar etc.). */
+.icon-btn {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-tag);
+  background: var(--sheet);
+  color: var(--ink-2);
+  transition: border-color .12s ease, color .12s ease, background-color .12s ease;
+}
+.icon-btn:hover { border-color: var(--edge); background: var(--sheet-2); color: var(--ink); }
+
+/* Indicador de carregamento dentro de botões. */
+.btn-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, .35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin .7s linear infinite;
+}
+.btn-secondary .btn-spinner, .btn-ghost .btn-spinner { border-color: var(--rule); border-top-color: var(--ink); }
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+
+/* ── Tabelas de cadastro ──────────────────────────────────────────────────── */
+.table-sheet { overflow: hidden; border: 1px solid var(--rule); border-radius: var(--r-sheet); background: var(--sheet); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.data-table th {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--sheet-2);
+  color: var(--ink-3);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+.data-table td { padding: 12px 16px; border-bottom: 1px solid var(--rule); vertical-align: middle; overflow-wrap: anywhere; }
+.data-table tbody tr:last-child td { border-bottom: 0; }
+.data-table tbody tr:hover td { background: var(--sheet-hover); }
+.data-table .cell-primary { color: var(--ink); font-weight: 600; }
+.data-table .cell-muted { color: var(--ink-2); }
+.data-table .cell-number { font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Valores e quantidades: alinhados à direita para comparar casas decimais. */
+.data-table .cell-amount { text-align: right; }
+.data-table .col-actions { width: 1%; text-align: right; white-space: nowrap; }
+.data-table .table-state td { padding: 0; }
+.data-table .table-state:hover td { background: transparent; }
+
+/* ── Etiquetas ────────────────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--r-tag);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.tag svg { flex-shrink: 0; }
+/* Situações de estoque e de conta: mesmo significado em todas as telas. */
+.tag-neutral { border-color: var(--rule); background: var(--sheet-2); color: var(--ink-2); }
+.tag-strong { background: var(--ink); color: #fff; }
+.tag-success { background: var(--in-soft); color: var(--in-ink); }
+.tag-info { background: var(--out-soft); color: var(--out-ink); }
+.tag-warning { background: var(--signal-soft); color: var(--signal-ink); box-shadow: inset 0 0 0 1px rgba(122, 86, 0, .14); }
+.tag-danger { background: var(--danger-soft); color: var(--danger); }
+
+/* ── Livro de movimentações (entradas e saídas) ───────────────────────────── */
+.ledger {
+  --ledger-soft: var(--sheet-2);
+  --ledger-ink: var(--ink-2);
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sheet);
+  background: var(--sheet);
+  list-style: none;
+}
+.ledger-row {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.ledger-row:last-child { border-bottom: 0; }
+.ledger-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-tag);
+  background: var(--ledger-soft);
+  color: var(--ledger-ink);
+}
+.ledger-body { min-width: 0; }
+.ledger-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.ledger-title { font-size: 15px; font-weight: 700; }
+.ledger-title-row { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.ledger-meta { display: inline-flex; align-items: center; gap: 4px 8px; }
+.ledger-meta .btn { margin: -4px -6px -4px 0; }
+.ledger-date { color: var(--ink-3); font-size: 13px; font-variant-numeric: tabular-nums; }
+.ledger-note { max-width: 72ch; margin-top: 2px; color: var(--ink-2); font-size: 14px; overflow-wrap: anywhere; }
+.ledger-note.is-empty { color: var(--ink-3); }
+
+/* ── Toasts (sonner) ──────────────────────────────────────────────────────── */
+[data-sonner-toaster] { --border-radius: var(--r-sheet); --normal-border: var(--rule); font-family: var(--font-ui); }
+[data-sonner-toast].app-toast { box-shadow: var(--lift); color: var(--ink); font-size: 14px; }
+
+/* ── Formulários ──────────────────────────────────────────────────────────── */
+.optional-label { color: var(--ink-3); font-size: 13px; font-weight: 400; }
+.field-error { color: var(--danger); font-size: 13px; }
+
+/* ── Telas estreitas ──────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .page-inner { padding: 32px 28px 56px; }
+}
+
+/* A navegação passa para o topo e o conteúdo usa a rolagem da página. */
+@media (max-width: 860px) {
+  .app-layout { flex-direction: column; height: auto; min-height: 100dvh; }
+  .page { overflow: visible; }
+  .page-inner { padding: 24px 16px 48px; }
+  .page-header { align-items: flex-start; margin-bottom: 20px; }
+  .page-title { font-size: 26px; }
+  .search-field { flex: 1 1 100%; }
+  .ledger-row { grid-template-columns: 32px minmax(0, 1fr); gap: 12px; padding: 14px 16px; }
+  .ledger-mark { width: 32px; height: 32px; }
+}
+
+/* Linhas de tabela viram fichas empilhadas, com o rótulo de cada coluna. */
+@media (max-width: 640px) {
+  .data-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .data-table, .data-table tbody, .data-table tr { display: block; width: 100%; }
+  .data-table tr { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+  .data-table tbody tr:last-child { border-bottom: 0; }
+  .data-table td { display: block; padding: 2px 0; border: 0; }
+  .data-table td[data-label] { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; }
+  .data-table td[data-label]::before { content: attr(data-label); color: var(--ink-3); font-size: 13px; font-stretch: 87.5%; font-weight: 600; line-height: 1.7; }
+  .data-table .col-actions { width: auto; padding-top: 8px; text-align: left; }
+  .data-table tbody tr:hover td { background: transparent; }
+  .data-table .table-state { padding: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

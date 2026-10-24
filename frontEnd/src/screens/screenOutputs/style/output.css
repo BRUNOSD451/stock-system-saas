@@ -1,0 +1,2 @@
+/* Saídas usam o azul de retirada; a estrutura do livro vem do global.css. */
+.ledger.is-out { --ledger-soft: var(--out-soft); --ledger-ink: var(--out-ink); }

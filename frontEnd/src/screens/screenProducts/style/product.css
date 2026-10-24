@@ -1,0 +1,63 @@
+/* Catálogo em tabela: nome e foto identificam; o saldo, à direita, é o dado que se procura. */
+.products-table .product-cell { display: flex; align-items: center; gap: 12px; min-width: 220px; }
+
+.product-thumb {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-tag);
+  background: var(--sheet-2);
+  color: var(--ink-3);
+}
+.product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.product-text { display: flex; flex-direction: column; min-width: 0; }
+.product-name-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.product-sku { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* Inativo: continua na lista quando filtrado, mas recua visualmente. */
+.products-table tr.is-inactive .product-thumb,
+.products-table tr.is-inactive .product-name,
+.products-table tr.is-inactive td:not(.col-actions):not(.product-cell) { opacity: .6; }
+
+.row-actions { display: inline-flex; gap: 2px; }
+.row-action-icon { width: 32px; padding: 0; }
+
+/* Modal de ajuste: saldo atual e a diferença que será registrada. */
+.adjust-current { color: var(--ink-2); font-size: 14px; }
+.adjust-current strong { color: var(--ink); }
+.adjust-difference { margin-top: -6px; font-size: 14px; font-weight: 600; }
+.adjust-difference.is-in { color: var(--in-ink); }
+.adjust-difference.is-out { color: var(--out-ink); }
+.field-hint { display: block; margin-top: 4px; color: var(--ink-3); font-size: 13px; font-weight: 400; }
+.form-modal-body input[readonly] { background: var(--sheet-2); color: var(--ink-2); }
+.product-name { overflow-wrap: anywhere; }
+.product-description {
+  display: -webkit-box;
+  max-width: 48ch;
+  overflow: hidden;
+  color: var(--ink-3);
+  font-size: 13px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.product-stock { display: inline-flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.product-qty { color: var(--ink); font-size: 15px; font-weight: 700; }
+.product-qty small { color: var(--ink-3); font-size: 12px; font-weight: 500; }
+.products-table tr.is-low .product-qty { color: var(--signal-ink); }
+.products-table tr.is-out .product-qty { color: var(--danger); }
+
+@media (max-width: 640px) {
+  /* Ficha: foto e nome no topo; os demais campos com o rótulo da coluna. */
+  .products-table .product-cell { min-width: 0; padding-bottom: 8px; }
+  .products-table td.cell-amount { text-align: left; }
+  /* Saldo antes da etiqueta, alinhado à esquerda como os demais valores da ficha. */
+  .product-stock { justify-content: flex-end; flex-direction: row-reverse; }
+  .product-description { -webkit-line-clamp: 2; }
+  .row-actions { flex-wrap: wrap; }
+}

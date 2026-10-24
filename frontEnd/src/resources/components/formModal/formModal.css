@@ -1,0 +1,227 @@
+.form-modal-backdrop,
+.error-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(27, 29, 33, .55);
+}
+.error-modal-backdrop { z-index: 110; }
+
+.form-modal,
+.error-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 520px);
+  max-height: calc(100dvh - 40px);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sheet);
+  background: var(--sheet);
+  color: var(--ink);
+  box-shadow: var(--lift);
+  animation: form-modal-in .14s ease-out;
+}
+
+@keyframes form-modal-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ── Cabeçalho, corpo e ações ─────────────────────────────────────────────── */
+.form-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.form-modal h2,
+.error-modal h2 { font-size: 21px; font-weight: 700; letter-spacing: -.01em; }
+.form-modal-description { max-width: 52ch; margin-top: 4px; color: var(--ink-2); font-size: 15px; }
+
+.form-modal-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  margin: -6px -8px 0 0;
+  border: 0;
+  border-radius: var(--r-tag);
+  background: transparent;
+  color: var(--ink-2);
+}
+.form-modal-close:hover:not(:disabled) { background: var(--sheet-2); color: var(--ink); }
+.form-modal-close:disabled { cursor: not-allowed; opacity: .5; }
+
+.form-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 20px 24px 24px;
+}
+
+.form-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--rule);
+  background: var(--sheet-2);
+  border-radius: 0 0 var(--r-sheet) var(--r-sheet);
+}
+
+.form-modal-error {
+  padding: 10px 12px;
+  border-left: 3px solid var(--danger);
+  border-radius: var(--r-tag);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ── Campos ───────────────────────────────────────────────────────────────── */
+/* Bloco em vez de flex: o texto do rótulo e "(opcional)" ficam na mesma linha. */
+.form-modal-body label {
+  display: block;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-modal-body input:not([type="file"]):not([type="checkbox"]),
+.form-modal-body select,
+.form-modal-body textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid var(--edge);
+  border-radius: var(--r-tag);
+  background: var(--sheet);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 400;
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+.form-modal-body textarea { min-height: 88px; resize: vertical; }
+.form-modal-body select {
+  padding-right: 36px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%234f5660' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+.form-modal-body input:hover,
+.form-modal-body select:hover,
+.form-modal-body textarea:hover { border-color: var(--ink-2); }
+.form-modal-body input:focus-visible,
+.form-modal-body select:focus-visible,
+.form-modal-body textarea:focus-visible { border-color: var(--ink); outline: 0; box-shadow: var(--focus-ring); }
+.form-modal-body input[aria-invalid="true"],
+.form-modal-body select[aria-invalid="true"] { border-color: var(--danger); }
+.form-modal-body input::placeholder,
+.form-modal-body textarea::placeholder { color: var(--ink-3); }
+
+/* Dois campos relacionados lado a lado (ex.: preço e estoque); empilham no celular. */
+.form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+/* ── Upload de imagem ─────────────────────────────────────────────────────── */
+.image-upload-field > span:first-child { display: flex; align-items: baseline; gap: 6px; }
+.image-upload-field small { color: var(--ink-3); font-size: 13px; font-weight: 400; }
+
+.image-upload-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  margin-top: 6px;
+  padding: 10px 14px;
+  border: 1px dashed var(--edge);
+  border-radius: var(--r-tag);
+  background: var(--sheet-2);
+  color: var(--ink-2);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: border-color .12s ease, background-color .12s ease;
+}
+.image-upload-button span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.image-upload-field:hover .image-upload-button { border-color: var(--ink); background: var(--sheet); color: var(--ink); }
+.image-upload-field:focus-within .image-upload-button { border-style: solid; border-color: var(--ink); outline: 0; box-shadow: var(--focus-ring); }
+
+.image-upload-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Lista de separação (entradas e saídas) ───────────────────────────────── */
+.picking-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96px auto;
+  align-items: end;
+  gap: 8px;
+}
+/* Mesma altura renderizada dos campos. */
+.picking-row .btn { min-height: 42px; }
+
+.picking-list {
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-tag);
+  list-style: none;
+}
+.picking-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 6px 6px 12px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+}
+.picking-item:last-child { border-bottom: 0; }
+.picking-item-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.picking-item-qty { font-size: 18px; font-stretch: 75%; font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+.picking-item-qty small { margin-left: 2px; color: var(--ink-3); font-size: 13px; font-stretch: 100%; font-weight: 500; }
+.picking-list.is-in .picking-item-qty { color: var(--in-ink); }
+.picking-list.is-out .picking-item-qty { color: var(--out-ink); }
+.picking-item .btn-ghost:hover:not(:disabled) { background: var(--danger-soft); color: var(--danger); }
+.picking-empty {
+  padding: 12px;
+  border: 1px dashed var(--rule);
+  border-radius: var(--r-tag);
+  color: var(--ink-3);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ── Modal de erro ────────────────────────────────────────────────────────── */
+.error-modal { align-items: center; gap: 12px; width: min(100%, 420px); padding: 32px 28px 24px; text-align: center; }
+.error-modal .form-modal-close { position: absolute; top: 12px; right: 12px; margin: 0; }
+.error-modal-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--danger-soft); color: var(--danger); }
+.error-modal p { max-width: 40ch; color: var(--ink-2); line-height: 1.5; }
+.error-modal .btn { margin-top: 8px; min-width: 120px; }
+
+@media (max-width: 520px) {
+  .form-modal-backdrop { align-items: flex-end; padding: 0; }
+  .form-modal { width: 100%; max-height: 92dvh; border-radius: var(--r-sheet) var(--r-sheet) 0 0; }
+  .form-modal-actions { border-radius: 0; }
+  .form-modal-actions .btn { flex: 1; }
+  .form-row { grid-template-columns: minmax(0, 1fr); }
+  .picking-row { grid-template-columns: minmax(0, 1fr) 88px; }
+  .picking-row label:first-child { grid-column: 1 / -1; }
+}

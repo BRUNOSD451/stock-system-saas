@@ -1,0 +1,73 @@
+.home-date::first-letter { text-transform: uppercase; }
+
+.icon-btn .notif-dot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--sheet);
+  border-radius: 50%;
+  background: var(--danger);
+}
+
+/* Ações à esquerda; o que precisa de reposição numa coluna fixa à direita. */
+.home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  align-items: start;
+  gap: 32px;
+}
+
+.home-section + .home-section { margin-top: 32px; }
+.home-section-title { margin-bottom: 12px; }
+
+/* ── Entrada e saída: as duas "docas" do estoque ──────────────────────────── */
+.dock-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+.dock-btn {
+  --dock-color: var(--in);
+  --dock-soft: var(--in-soft);
+  --dock-ink: var(--in-ink);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 116px;
+  padding: 22px 22px 22px 26px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sheet);
+  background: var(--sheet);
+  color: var(--ink);
+  text-align: left;
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+.dock-btn::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--dock-color); }
+.dock-btn.is-out { --dock-color: var(--out); --dock-soft: var(--out-soft); --dock-ink: var(--out-ink); }
+.dock-btn:hover { border-color: var(--rule-strong); box-shadow: 0 1px 2px rgba(27, 29, 33, .06), 0 4px 12px -4px rgba(27, 29, 33, .12); }
+
+.dock-btn-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-tag);
+  background: var(--dock-soft);
+  color: var(--dock-ink);
+}
+.dock-btn-label { display: block; font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+.dock-btn-hint { display: block; margin-top: 2px; color: var(--ink-2); font-size: 14px; }
+
+.register-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+@media (max-width: 1100px) {
+  .home-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+
+@media (max-width: 640px) {
+  .dock-actions { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .dock-btn { min-height: 88px; padding: 16px 16px 16px 20px; gap: 14px; }
+  .register-actions .btn { flex: 1 1 100%; }
+}

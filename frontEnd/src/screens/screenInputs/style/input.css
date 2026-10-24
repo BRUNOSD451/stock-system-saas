@@ -1,0 +1,2 @@
+/* Entradas usam o verde de recebimento; a estrutura do livro vem do global.css. */
+.ledger.is-in { --ledger-soft: var(--in-soft); --ledger-ink: var(--in-ink); }

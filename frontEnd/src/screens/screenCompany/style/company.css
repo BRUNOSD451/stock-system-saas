@@ -1,0 +1,120 @@
+/* Formulário à esquerda; o plano, só leitura, fica numa coluna estreita à direita. */
+.company-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: start;
+  gap: 24px;
+  max-width: 1040px;
+}
+
+.company-form,
+.company-plan {
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sheet);
+  background: var(--sheet);
+}
+
+.company-section { display: flex; flex-direction: column; gap: 20px; padding: 24px; }
+.company-section + .company-section { border-top: 1px solid var(--rule); }
+.company-section h2,
+.company-plan h2 { font-size: 18px; font-weight: 700; }
+
+.company-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 24px 24px 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--danger);
+  border-radius: var(--r-tag);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 14px;
+}
+.company-alert svg { flex-shrink: 0; margin-top: 2px; }
+
+/* ── Campos ───────────────────────────────────────────────────────────────── */
+.company-field { display: flex; flex-direction: column; gap: 6px; max-width: 480px; }
+.company-field label,
+.company-field-label { color: var(--ink); font-size: 14px; font-weight: 600; }
+.company-field input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--edge);
+  border-radius: var(--r-tag);
+  background: var(--sheet);
+  color: var(--ink);
+  font-size: 16px;
+}
+.company-field input.company-input-short { max-width: 160px; font-variant-numeric: tabular-nums; }
+.company-field input:hover { border-color: var(--ink-2); }
+.company-field input:focus-visible { border-color: var(--ink); outline: 0; box-shadow: var(--focus-ring); }
+.company-field input[aria-invalid="true"] { border-color: var(--danger); }
+.company-hint { max-width: 60ch; color: var(--ink-3); font-size: 13px; line-height: 1.45; }
+
+/* ── Logo ─────────────────────────────────────────────────────────────────── */
+.company-logo-field { display: flex; align-items: flex-start; gap: 16px; }
+.company-logo-preview {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sheet);
+  background: var(--sheet-2);
+  color: var(--edge);
+}
+.company-logo-preview img { width: 100%; height: 100%; object-fit: contain; }
+.company-logo-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.company-logo-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.company-logo-upload { cursor: pointer; }
+.company-logo-upload:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* ── Ações ────────────────────────────────────────────────────────────────── */
+.company-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 12px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--rule);
+  border-radius: 0 0 var(--r-sheet) var(--r-sheet);
+  background: var(--sheet-2);
+}
+.company-saved { display: inline-flex; align-items: center; gap: 6px; margin-right: auto; color: var(--in-ink); font-size: 14px; font-weight: 600; }
+
+/* ── Plano ────────────────────────────────────────────────────────────────── */
+.company-plan { display: flex; flex-direction: column; gap: 16px; padding: 24px; }
+.company-plan-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.company-plan-name { font-size: 36px; font-stretch: 75%; font-weight: 700; line-height: 1; }
+
+.company-status { border-color: var(--edge); background: var(--sheet); color: var(--ink-2); }
+.company-status.is-active { border-color: transparent; background: var(--in-soft); color: var(--in-ink); }
+.company-status.is-trial { border-color: transparent; background: var(--out-soft); color: var(--out-ink); }
+.company-status.is-past_due { border-color: transparent; background: var(--signal-soft); color: var(--signal-ink); }
+.company-status.is-canceled,
+.company-status.is-suspended { border-color: transparent; background: var(--danger-soft); color: var(--danger); }
+
+.company-plan-facts { display: flex; flex-direction: column; border-top: 1px solid var(--rule); }
+.company-plan-facts > div { display: flex; flex-direction: column; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.company-plan-facts > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.company-plan-facts dt { color: var(--ink-3); font-size: 13px; }
+.company-plan-facts dd { color: var(--ink); font-size: 16px; font-weight: 600; }
+.company-plan-facts dd small { display: block; color: var(--ink-2); font-size: 13px; font-weight: 400; }
+
+@media (max-width: 960px) {
+  .company-layout { grid-template-columns: minmax(0, 1fr); }
+  .company-plan { order: -1; }
+}
+
+@media (max-width: 520px) {
+  .company-section { padding: 20px 16px; }
+  .company-alert { margin: 16px 16px 0; }
+  .company-actions { padding: 12px 16px; }
+  .company-actions .btn { flex: 1; }
+  .company-saved { flex-basis: 100%; }
+}

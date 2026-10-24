@@ -1,0 +1,8 @@
+/* Uma coluna só: a tabela não precisa ocupar a largura inteira. */
+.category-page .table-sheet { max-width: 720px; }
+
+@media (max-width: 640px) {
+  .category-page .data-table tr { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .category-page .data-table .col-actions { padding-top: 0; }
+  .category-page .data-table .table-state { display: block; }
+}
